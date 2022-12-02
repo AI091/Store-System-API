@@ -1,8 +1,9 @@
-from flask import Flask
+from flask import Flask , jsonify
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
 from flask_admin import Admin
 
+from flask_migrate import Migrate
 from models import * 
 
 from db import db
@@ -34,6 +35,7 @@ def create_app(db_url=None):
     app.secret_key = 'super secret key'
     
     db.init_app(app)
+    migrate = Migrate(app, db)
     api = Api(app)
 
     app.config["JWT_SECRET_KEY"] = "secret_key"
@@ -51,9 +53,6 @@ def create_app(db_url=None):
             jsonify({"message": "The token has expired.", "error": "token_expired"}),
             401,
         )
-
-    with app.app_context():
-        db.create_all()
 
     api.register_blueprint(ItemBlueprint)
     api.register_blueprint(StoreBlueprint)
