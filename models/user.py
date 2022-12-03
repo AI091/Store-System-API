@@ -10,8 +10,6 @@ class UserModel(db.Model):
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
     phone = db.Column(db.String(80) , nullable = False)
-    address = db.Column(db.String(80), nullable = False)
-    birth_date = db.Column(db.Date)
     created_at = db.Column(db.DateTime , default=datetime.datetime.utcnow )
 
     addresses = db.relationship('AddressModel' ,back_populates = 'user', lazy = "dynamic" , passive_deletes=True )

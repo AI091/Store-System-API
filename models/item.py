@@ -7,8 +7,9 @@ class ItemModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
     price = db.Column(db.Float(precision=2) , nullable=False)
-    description = db.Column(db.String)
     inventory = db.Column(db.Integer, nullable = False)
+
+    description = db.Column(db.String)
     last_updated = db.Column(db.DateTime ,onupdate = datetime.datetime.utcnow  )
 
 

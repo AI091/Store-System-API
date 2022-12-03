@@ -36,7 +36,7 @@ class Item(MethodView):
 
         if item:
             item.price = item_data["price"]
-            item.name = item_data["name"]
+            item.title = item_data["title"]
         else:
             item = ItemModel(**item_data)
 
