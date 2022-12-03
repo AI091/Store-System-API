@@ -48,6 +48,5 @@ class UserSchema(Schema):
     id = fields.Int(dmp_only=True)
     username = fields.Str(required=True)
     password = fields.Str(required=True , load_only=True)
-    name = fields.Str(required=True)
-    address =fields.Str()
+    name = fields.Str()
 
