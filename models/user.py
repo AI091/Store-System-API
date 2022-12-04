@@ -16,3 +16,4 @@ class UserModel(db.Model):
     addresses = db.relationship(
         "AddressModel", back_populates="user", lazy="dynamic", passive_deletes=True
     )
+    orders = db.relationship("OrderModel" , back_populates="customer" , lazy="dynamic")
