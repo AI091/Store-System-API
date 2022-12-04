@@ -1,6 +1,7 @@
 from db import db
 import datetime
 
+
 class UserModel(db.Model):
     __tablename__ = "users"
 
@@ -9,8 +10,9 @@ class UserModel(db.Model):
     password_hash = db.Column(db.String(256), unique=False, nullable=False)
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
-    phone = db.Column(db.String(80) , nullable = False)
-    created_at = db.Column(db.DateTime , default=datetime.datetime.utcnow )
+    phone = db.Column(db.String(80), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    addresses = db.relationship('AddressModel' ,back_populates = 'user', lazy = "dynamic" , passive_deletes=True )
-
+    addresses = db.relationship(
+        "AddressModel", back_populates="user", lazy="dynamic", passive_deletes=True
+    )

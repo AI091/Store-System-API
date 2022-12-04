@@ -16,7 +16,7 @@ from flask_admin.contrib.sqla import ModelView
 
 import secrets
 
-def create_app(db_url=None):
+def create_app(db_url="postgresql://postgres:9871234560**@localhost/flaskapi"):
     app = Flask(__name__)
     app.config["API_TITLE"] = "Stores REST API"
     app.config["API_VERSION"] = "v1"
@@ -66,6 +66,7 @@ def create_app(db_url=None):
     admin.add_view(ModelView(TagModel, db.session))
     admin.add_view(ModelView(CollectionModel, db.session))
     admin.add_view(ModelView(AddressModel, db.session))
+    
     
 
     return app
