@@ -1,6 +1,7 @@
 from db import db
 import datetime
 
+
 class CartModel(db.Model):
     __tablename__ = "carts"
     id = db.Column(db.Integer, primary_key=True)

@@ -11,3 +11,7 @@ class StoreModel(db.Model):
     items = db.relationship(
         "ItemModel", back_populates="store", lazy="dynamic", passive_deletes=True
     )
+
+    managers = db.relationship(
+        "ManageStore", back_populates="managed_stores", lazy="dynamic"
+    )
