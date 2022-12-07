@@ -11,10 +11,10 @@ from resources.item import blp as ItemBlueprint
 from resources.store import blp as StoreBlueprint
 from resources.tag import blp as TagBlueprint
 from resources.user import blp as UserBlueprint
-from flask_admin.contrib.sqla import ModelView
+# from flask_admin.contrib.sqla import ModelView
 
 
-import secrets
+# import secrets
 
 def create_app(db_url="postgresql://postgres:9871234560**@localhost/flaskapi"):
     app = Flask(__name__)
@@ -59,13 +59,13 @@ def create_app(db_url="postgresql://postgres:9871234560**@localhost/flaskapi"):
     api.register_blueprint(TagBlueprint)
     api.register_blueprint(UserBlueprint)
 
-    admin = Admin(app, name='ُُE-Commerce-API ', template_mode='bootstrap3')
-    admin.add_view(ModelView(UserModel, db.session))
-    admin.add_view(ModelView(ItemModel, db.session))
-    admin.add_view(ModelView(StoreModel, db.session))
-    admin.add_view(ModelView(TagModel, db.session))
-    admin.add_view(ModelView(CollectionModel, db.session))
-    admin.add_view(ModelView(AddressModel, db.session))
+    # admin = Admin(app, name='ُُE-Commerce-API ', template_mode='bootstrap3')
+    # admin.add_view(ModelView(UserModel, db.session))
+    # admin.add_view(ModelView(ItemModel, db.session))
+    # admin.add_view(ModelView(StoreModel, db.session))
+    # admin.add_view(ModelView(TagModel, db.session))
+    # admin.add_view(ModelView(CollectionModel, db.session))
+    # admin.add_view(ModelView(AddressModel, db.session))
     
     
 
