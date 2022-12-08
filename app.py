@@ -1,20 +1,24 @@
-from flask import Flask , jsonify
+from flask import Flask, jsonify
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
 from flask_admin import Admin
 
 from flask_migrate import Migrate
-from models import * 
+from models import *
 
 from db import db
 from resources.item import blp as ItemBlueprint
 from resources.store import blp as StoreBlueprint
 from resources.tag import blp as TagBlueprint
 from resources.user import blp as UserBlueprint
+from resources.cart import blp as CartBlueprint
+
+
 # from flask_admin.contrib.sqla import ModelView
 
 
 # import secrets
+
 
 def create_app(db_url="postgresql://postgres:9871234560**@localhost/flaskapi"):
     app = Flask(__name__)
@@ -30,10 +34,10 @@ def create_app(db_url="postgresql://postgres:9871234560**@localhost/flaskapi"):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["PROPAGATE_EXCEPTIONS"] = True
 
-    app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
-    app.config['SESSION_TYPE'] = 'filesystem'
-    app.secret_key = 'super secret key'
-    
+    app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
+    app.config["SESSION_TYPE"] = "filesystem"
+    app.secret_key = "super secret key"
+
     db.init_app(app)
     migrate = Migrate(app, db)
     api = Api(app)
@@ -58,6 +62,8 @@ def create_app(db_url="postgresql://postgres:9871234560**@localhost/flaskapi"):
     api.register_blueprint(StoreBlueprint)
     api.register_blueprint(TagBlueprint)
     api.register_blueprint(UserBlueprint)
+    api.register_blueprint(CartBlueprint)
+
 
     # admin = Admin(app, name='ُُE-Commerce-API ', template_mode='bootstrap3')
     # admin.add_view(ModelView(UserModel, db.session))
@@ -66,7 +72,5 @@ def create_app(db_url="postgresql://postgres:9871234560**@localhost/flaskapi"):
     # admin.add_view(ModelView(TagModel, db.session))
     # admin.add_view(ModelView(CollectionModel, db.session))
     # admin.add_view(ModelView(AddressModel, db.session))
-    
-    
 
     return app

@@ -14,13 +14,17 @@ class CartModel(db.Model):
 
 class CartItemModel(db.Model):
     __tablename__ = "cart_items"
-    id = db.Column(db.Integer, primary_key=True)
 
-    item_id = db.Column(db.Integer, db.ForeignKey("items.id"), nullable=False)
+    item_id = db.Column(
+        db.Integer, db.ForeignKey("items.id"), nullable=False, primary_key=True
+    )
     item = db.relationship("ItemModel")
     quantity = db.Column(db.Integer, nullable=False)
 
     cart_id = db.Column(
-        db.Integer, db.ForeignKey("carts.id", ondelete="CASCADE"), nullable=False
+        db.Integer,
+        db.ForeignKey("carts.id", ondelete="CASCADE"),
+        nullable=False,
+        primary_key=True,
     )
     cart = db.relationship("CartModel", back_populates="cart_items")

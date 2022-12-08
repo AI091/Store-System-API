@@ -13,5 +13,5 @@ class StoreModel(db.Model):
     )
 
     managers = db.relationship(
-        "ManageStore", back_populates="managed_stores", lazy="dynamic"
+        "UserModel", back_populates="managed_stores", lazy="dynamic",secondary = "manage_store"
     )
