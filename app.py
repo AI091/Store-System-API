@@ -16,7 +16,7 @@ from resources.cart import blp as CartBlueprint
 
 from dotenv import load_dotenv
 
-# from flask_admin.contrib.sqla import ModelView
+from flask_admin.contrib.sqla import ModelView
 
 
 # import secrets
@@ -34,7 +34,8 @@ def create_app(db_url=None):
     app.config[
         "OPENAPI_SWAGGER_UI_URL"
     ] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
-    app.config["SQLALCHEMY_DATABASE_URI"] = db_url or os.getenv("DATABASE_URL", "sqlite:///data.db")
+    app.config["SQLALCHEMY_DATABASE_URI"] = db_url or os.getenv(
+        "DATABASE_URL", "sqlite:///data.db")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["PROPAGATE_EXCEPTIONS"] = True
 
@@ -58,7 +59,8 @@ def create_app(db_url=None):
     @jwt.expired_token_loader
     def expired_token_callback(jwt_header, jwt_payload):
         return (
-            jsonify({"message": "The token has expired.", "error": "token_expired"}),
+            jsonify({"message": "The token has expired.",
+                    "error": "token_expired"}),
             401,
         )
 
@@ -68,13 +70,13 @@ def create_app(db_url=None):
     api.register_blueprint(UserBlueprint)
     api.register_blueprint(CartBlueprint)
 
-
-    # admin = Admin(app, name='ُُE-Commerce-API ', template_mode='bootstrap3')
-    # admin.add_view(ModelView(UserModel, db.session))
-    # admin.add_view(ModelView(ItemModel, db.session))
-    # admin.add_view(ModelView(StoreModel, db.session))
-    # admin.add_view(ModelView(TagModel, db.session))
-    # admin.add_view(ModelView(CollectionModel, db.session))
-    # admin.add_view(ModelView(AddressModel, db.session))
+    admin = Admin(app, name='ُُE-Commerce-API ', template_mode='bootstrap3')
+    admin.add_view(ModelView(UserModel, db.session))
+    admin.add_view(ModelView(ItemModel, db.session))
+    admin.add_view(ModelView(StoreModel, db.session))
+    admin.add_view(ModelView(TagModel, db.session))
+    admin.add_view(ModelView(CollectionModel, db.session))
+    admin.add_view(ModelView(CartModel, db.session))
+    admin.add_view(ModelView(CartItemModel, db.session))
 
     return app

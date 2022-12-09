@@ -1,11 +1,13 @@
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
-from flask_jwt_extended import jwt_required, get_jwt
+from flask_jwt_extended import jwt_required , get_jwt_identity
 from sqlalchemy.exc import SQLAlchemyError
 
 from db import db
 from models import ItemModel
 from schemas import ItemSchema, ItemUpdateSchema
+
+from models import ACCESS
 
 blp = Blueprint("Items", "items", description="Operations on items")
 
@@ -20,14 +22,16 @@ class Item(MethodView):
 
     @jwt_required()
     def delete(self, item_id):
-        jwt = get_jwt()
-        if not jwt.get("is_admin"):
-            abort(401, message="Admin privilege required.")
-
         item = ItemModel.query.get_or_404(item_id)
-        db.session.delete(item)
-        db.session.commit()
-        return {"message": "Item deleted."}
+        user_id = get_jwt_identity()
+        user = UserModel.query.get_or_404(user_id)
+        if user.access == ACCESS["admin"] or user.access == ACCESS["store_manager"] and item.store.managers.filter(User.id == user_id):
+            db.session.delete(item)
+            db.session.commit()
+            return {"message": "Item deleted."} , 201
+        else :       
+            return {"message": "Unotherized delete operation"}, 401
+
 
     @blp.arguments(ItemUpdateSchema)
     @blp.response(200, ItemSchema)

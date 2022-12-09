@@ -13,24 +13,24 @@ class UserModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(80), unique=True, nullable=False)
-    password_hash = db.Column(db.String(256), unique=False, nullable=False)
+    password = db.Column(db.String(256), unique=False, nullable=False)
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
     phone = db.Column(db.String(80), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    acces = db.Column(db.Integer, default=ACCESS["user"])
+    access = db.Column(db.Integer, default=ACCESS["user"])
 
     addresses = db.relationship(
         "AddressModel", back_populates="user", lazy="dynamic", passive_deletes=True
     )
-    orders = db.relationship("OrderModel", back_populates="customer", lazy="dynamic")
+    orders = db.relationship(
+        "OrderModel", back_populates="customer", lazy="dynamic")
 
     managed_stores = db.relationship(
-        "StoreModel", back_populates="managers", lazy="dynamic" , secondary = "manage_store"
+        "StoreModel", back_populates="managers", lazy="dynamic", secondary="manage_store"
     )
 
-    
     def is_admin(self):
         return self.access == ACCESS["admin"]
 
