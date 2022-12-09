@@ -1,6 +1,6 @@
 # Store-System-API
 
-The project is currently an Online Store REST-API backend developed in Flask with functionality demonstreated below that is deployed on render.com you can try it here https://e-shop-api-llqs.onrender.com
+The project is currently an Online Store REST-API backend developed in Flask with functionality demonstrated below that is deployed on render.com you can try it here https://e-shop-api-llqs.onrender.com
 
 ## Architecture
 The API is built following the MVC Pattern where the resource package is the controller layer and the Model package is the Model Layer 
