@@ -29,11 +29,11 @@ class Cart(MethodView):
             else:
                 cart_item = CartItemModel(**item)
                 cart_item.cart_id = cart.id
-            if ItemModel.query.get_or_404(item['item_id']).inventory >= item["quantity"] : 
+            if ItemModel.query.get_or_404(item['item_id']).inventory >= item["quantity"]:
                 db.session.add(cart_item)
                 db.session.commit()
-            else : 
-                return 
+            else:
+                abort(406, message="Not enough inventory")
 
         return cart
 
@@ -41,13 +41,11 @@ class Cart(MethodView):
         cart = CartModel.query.get_or_404(cart_id, )
         db.session.delete(cart)
         db.session.commit()
-        return {"message": "cart deleted."}
+        return {"message": "cart deleted."}, 200
 
 
 @blp.route("/cart")
 class NewCart(MethodView):
-
-    @blp.arguments(CartSchema)
     @blp.response(200, CartSchema)
     def post(self):
         cart = CartModel()

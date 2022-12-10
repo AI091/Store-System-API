@@ -68,8 +68,8 @@ class CartItemSchema(Schema):
 
 
 class CartSchema(Schema):
-    cart_id = fields.Int(dump_only=True)
-    cart_items = fields.List(fields.Nested(CartItemSchema()))
+    id = fields.Int(dump_only=True)
+    cart_items = fields.List(fields.Nested(CartItemSchema()), dump_only=True)
 
 
 class CartUpdateSchema(Schema):
@@ -84,7 +84,8 @@ class OrderItemSchema(Schema):
 
 
 class OrderSchema(Schema):
-    order_id = fields.Int(dump_only=True)
-    user_id = fields.Int(required=True)
-    cart_id = fields.Int(required=True , load_only = True)
+    id = fields.Int(dump_only=True)
+    cart_id = fields.Int(required=True, load_only=True)
+    customer_id = fields.Int(dump_only=True)
+    created_at = fields.String(dump_only=True)
     order_items = fields.List(fields.Nested(OrderItemSchema()), dump_only=True)

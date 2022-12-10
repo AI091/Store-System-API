@@ -7,7 +7,7 @@ class OrderModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    customer_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    customer_id = db.Column(db.Integer, db.ForeignKey("users.id"),nullable=False)
     customer = db.relationship("UserModel", back_populates="orders")
     order_items = db.relationship("OrderItemModel", back_populates="order")
 

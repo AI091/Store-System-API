@@ -77,5 +77,7 @@ def create_app(db_url=None):
     admin.add_view(ModelView(CollectionModel, db.session))
     admin.add_view(ModelView(CartModel, db.session))
     admin.add_view(ModelView(CartItemModel, db.session))
+    admin.add_view(ModelView(OrderItemModel, db.session))
+    admin.add_view(ModelView(OrderModel, db.session))
 
     return app
