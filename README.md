@@ -92,7 +92,7 @@ After cloning/downloading the project you can get the project running in one of 
 with docker installed on the system run the following 
 ```
 docker build -t "image_name" . 
-docker run -dp 5000:5000 -w /app -v "$(pwd):/app" "image_name" -c "flask run --host 0.0.0.0"
+docker run -dp 5000:5000 -w /app -v "$(pwd):/app" "image_name" sh -c "flask run --host 0.0.0.0"
 
 ```
 ### 2- Via requirements.txt : 
