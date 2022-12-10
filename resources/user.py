@@ -15,6 +15,7 @@ blp = Blueprint("Users", "users", description="Operations on users")
 @blp.route("/register")
 class UserRegister(MethodView):
     @blp.arguments(UserSchema)
+    @blp.response(200, UserSchema)
     def post(self, user_data):
         if (UserModel.query.filter(UserModel.email == user_data["email"])).first():
             abort(409, message="The email is already used")
@@ -24,7 +25,7 @@ class UserRegister(MethodView):
         db.session.add(user)
         db.session.commit()
 
-        return {"message": "User created Successfuly"}, 201
+        return user
 
 
 @blp.route("/user/<int:user_id>")

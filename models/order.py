@@ -9,6 +9,7 @@ class OrderModel(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     customer_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     customer = db.relationship("UserModel", back_populates="orders")
+    order_items = db.relationship("OrderItemModel", back_populates="order")
 
 
 class OrderItemModel(db.Model):

@@ -49,7 +49,7 @@ class TagAndItemSchema(Schema):
 
 class UserSchema(Schema):
     id = fields.Int(dump_only=True)
-    email = fields.Str(required=True)
+    email = fields.Email(required=True)
     password = fields.Str(required=True, load_only=True)
     first_name = fields.Str(required=True)
     last_name = fields.Str(required=True)
@@ -75,11 +75,16 @@ class CartSchema(Schema):
 class CartUpdateSchema(Schema):
     cart_items = fields.List(fields.Nested(CartItemSchema()))
 
+
 class OrderItemSchema(Schema):
-    pass
+    id = fields.Int(dump_only=True)
+    item_id = fields.Int(required=True)
+    quantity = fields.Int(required=True)
+    unit_price = fields.Float(dump_only=True)
+
 
 class OrderSchema(Schema):
     order_id = fields.Int(dump_only=True)
     user_id = fields.Int(required=True)
-    cart_id = fields.Int(required=True)
-    order_items = fields.List(fields.Nested(CartItemSchema()))
+    cart_id = fields.Int(required=True , load_only = True)
+    order_items = fields.List(fields.Nested(OrderItemSchema()), dump_only=True)

@@ -13,13 +13,11 @@ from resources.store import blp as StoreBlueprint
 from resources.tag import blp as TagBlueprint
 from resources.user import blp as UserBlueprint
 from resources.cart import blp as CartBlueprint
+from resources.order import blp as OrderBluePrint
 
 from dotenv import load_dotenv
 
 from flask_admin.contrib.sqla import ModelView
-
-
-# import secrets
 
 
 def create_app(db_url=None):
@@ -69,6 +67,7 @@ def create_app(db_url=None):
     api.register_blueprint(TagBlueprint)
     api.register_blueprint(UserBlueprint)
     api.register_blueprint(CartBlueprint)
+    api.register_blueprint(OrderBluePrint)
 
     admin = Admin(app, name='ُُE-Commerce-API ', template_mode='bootstrap3')
     admin.add_view(ModelView(UserModel, db.session))
