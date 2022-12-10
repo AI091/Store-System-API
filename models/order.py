@@ -19,3 +19,5 @@ class OrderItemModel(db.Model):
     unit_price = db.Column(db.Float(precision=2), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey("items.id"))
     item = db.relationship("ItemModel")
+    order_id = db.Column(db.Integer, db.ForeignKey("orders.id"))
+    order = db.relationship("OrderModel", back_populates="order_items")

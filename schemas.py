@@ -75,8 +75,11 @@ class CartSchema(Schema):
 class CartUpdateSchema(Schema):
     cart_items = fields.List(fields.Nested(CartItemSchema()))
 
+class OrderItemSchema(Schema):
+    pass
 
 class OrderSchema(Schema):
     order_id = fields.Int(dump_only=True)
     user_id = fields.Int(required=True)
+    cart_id = fields.Int(required=True)
     order_items = fields.List(fields.Nested(CartItemSchema()))

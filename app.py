@@ -41,13 +41,13 @@ def create_app(db_url=None):
 
     app.config["FLASK_ADMIN_SWATCH"] = "cerulean"
     app.config["SESSION_TYPE"] = "filesystem"
-    app.secret_key = "super secret key"
-
+    app.secret_key = os.getenv("SECRET_KEY", "super-secret-key")
     db.init_app(app)
     migrate = Migrate(app, db)
     api = Api(app)
 
-    app.config["JWT_SECRET_KEY"] = "secret_key"
+    app.config["JWT_SECRET_KEY"] = os.getenv(
+        "JWT_SECRET_KEY", "super-secret-key")
     jwt = JWTManager(app)
 
     @jwt.additional_claims_loader
